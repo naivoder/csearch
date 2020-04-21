@@ -1,46 +1,43 @@
+#include <iostream>
+#include <string>
+#include <vector>
+#include <sys/types.h>
+#include <sys/dir.h>
+#include <sys/param.h>
+#include <stdio.h>
 
-TMainForm *MainForm;
+using namespace std;
 
-void __fastcall TMainForm::SearchPath(String APath, int Operation)
+static int filter(const struct dirent* dir_ent)
 {
-  bool       Result;
-  int        FileAttributes = faAnyFile;
-  TSearchRec FileSearch;
+    if (!strcmp(dir_ent->d_name, ".") || !strcmp(dir_ent->d_name, "..")) return 0;
+    std::string fname = dir_ent->d_name;
 
-  if (APath[APath.Length()] != '\\')
-  {
-     APath = APath + "\\";
-  }
+    if (fname.find("main.cpp") == std::string::npos) return 0;
 
-  Result = FindFirst(APath + Mask->Text, FileAttributes, FileSearch);
+    return 1;
+}
 
-  while (Result == 0)
-  {
-    switch (Operation) {
-      case SEARCH_FILES   : SearchFile(APath+FileSearch.Name); break;
-      case REPLACE_STRING : ReplaceString(APath+FileSearch.Name); break;
-      case RENAME_FILES   : RenameThisFile(APath+FileSearch.Name); break;
+
+
+int main()
+{
+    struct dirent **namelist;
+
+
+    std::vector<std::string> v;
+    std::vector<std::string>::iterator  it;
+
+    n = scandir( dir_path , &namelist, *filter, alphasort );
+
+    for (int i=0; i<n; i++) {
+        std::string fname = namelist[i]->d_name;
+
+        v.push_back(fname);
+
+        free(namelist[i]);
     }
-    Result = FindNext(FileSearch);
-  }
+    free(namelist);
 
-  // Look In any sub Directories if Checked
-
-  if (SearchSubs->Checked)
-  {
-    Result = FindFirst(APath + "*.*", faDirectory, FileSearch);
-
-    while (Result == 0)
-    {
-      if ((FileSearch.Name != ".") && (FileSearch.Name != ".."))
-      {
-        SearchPath(APath+FileSearch.Name, Operation);
-      }
-      Result = FindNext(FileSearch);
-    }
-  }
-
-  Status->Caption = "Idle";
-
-  FindClose(FileSearch);
+return 0;
 }
