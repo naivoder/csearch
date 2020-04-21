@@ -362,6 +362,3 @@ void __fastcall TMainForm::ResultPathBtnClick(TObject *Sender)
   }
 }
 //---------------------------------------------------------------------------
-
-
-
