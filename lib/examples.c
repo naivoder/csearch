@@ -15,15 +15,11 @@ int search_file(char *fname, char *str) {
 
 	while(fgets(temp, 512, fp) != NULL) {
 		if((strstr(temp, str)) != NULL) {
-			printf("A match found on line: %d\n", line_num);
-			printf("\n%s\n", temp);
+			printf("Match on line: %d\n", line_num);
+			printf("'%s'\n", temp);
 			find_result++;
 		}
 		line_num++;
-	}
-
-	if(find_result == 0) {
-		printf("\nSorry, couldn't find a match.\n");
 	}
 
 	if(fp) {
