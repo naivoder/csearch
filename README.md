@@ -1,2 +1,8 @@
 # cython-c-wrapper
-[Simple example of wrapping a C library with Cython](https://stavshamir.github.io/python/making-your-c-library-callable-from-python-by-wrapping-it-with-cython/).
+Wrapping a C library with Cython
+
+### installation 
+makefiles included for convenience (GCC compiler)
+
+### usage (single file search)
+`python3 main.py` 
