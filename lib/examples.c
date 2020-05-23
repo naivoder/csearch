@@ -1,13 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
-int search_file(char *str, char *fname);
-void instruct(char *filename);
-
-void instruct(char *filename) {
-	printf("Proper Usage: %s <file> <string>\n", filename);
-}
+#include "examples.h"
 
 int search_file(char *fname, char *str) {
 	FILE *fp;
@@ -35,23 +29,6 @@ int search_file(char *fname, char *str) {
 	if(fp) {
 		fclose(fp);
 	}
-   	return(0);
-}
 
-int main(int argc, char *argv[]) {
-  int result, errno;
-
-  if(argc < 3 || argc > 3) {
-    instruct(argv[0]);
-    exit(1);
-  }
-  system("clear");
-
-  result = search_file(argv[1], argv[2]);
-  if(result == -1) {
-    perror("Error");
-    printf("Error number = %d\n", errno);
-    exit(1);
-  }
-  return(0);
+  return find_result;
 }
