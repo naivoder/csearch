@@ -17,5 +17,7 @@ makefiles included for convenience
 3) `cd ..`
 4) `make`
 
-### usage (single file search)
+### usage
 `python3 main.py` 
+
+enter file path to desired directory and query string when prompted
